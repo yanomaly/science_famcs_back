@@ -12,3 +12,9 @@ class SearchSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100, required=False, allow_blank=True)
     author = serializers.CharField(max_length=100, required=False, allow_blank=True)
     categories = serializers.MultipleChoiceField(choices=categories, required=False)
+
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        exclude = ['id']

@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from storage.serializers import SearchSerializer
+from storage.serializers import SearchSerializer, FileSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -27,7 +26,6 @@ class SearchRetrieveView(APIView):
                 categories = [Categories[string] for string in set]
                 queryset = queryset.filter(category__in=categories)
 
-            results = queryset.values_list('name', 'file')
-            return Response(results, status=status.HTTP_201_CREATED)
+            return Response({'files': FileSerializer(queryset, many=True).data}, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
