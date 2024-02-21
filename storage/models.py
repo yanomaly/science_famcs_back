@@ -3,8 +3,8 @@ from enumchoicefield import ChoiceEnum, EnumChoiceField
 
 
 class Subjects(ChoiceEnum):
-    ma = "Математический анализ"
     linal = "Линейная алгебра"
+    ma = "Математический анализ"
 
 
 class Categories(ChoiceEnum):
@@ -15,9 +15,11 @@ class Categories(ChoiceEnum):
 
 
 class File(models.Model):
-    subject = EnumChoiceField(enum_class=Subjects, null=False, blank=True)
-    name = models.CharField(max_length=100, null=False, blank=True)
-    author = models.CharField(max_length=100, null=False, blank=True)
-    category = EnumChoiceField(enum_class=Categories, null=False, blank=True)
+    subject = EnumChoiceField(enum_class=Subjects, null=False)
+    name = models.CharField(max_length=100, null=False)
+    author = models.CharField(max_length=100, null=False)
+    category = EnumChoiceField(enum_class=Categories, null=False)
     file = models.FileField(upload_to='files/')
     
+    def __str__(self) -> str:
+        return self.name
